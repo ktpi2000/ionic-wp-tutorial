@@ -19,4 +19,10 @@ export class HomePage {
     public http: HttpClient,
   ) { }
 
+  ionViewDidEnter() {
+    this.http.get('https://public-api.wordpress.com/rest/v1.1/sites/ionicjp.wordpress.com/posts/')
+      .subscribe(data => {
+        this.posts = data['posts'];
+      });
+  }
 }
