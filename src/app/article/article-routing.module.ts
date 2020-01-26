@@ -5,7 +5,7 @@ import { ArticlePage } from './article.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':articleId',
     component: ArticlePage
   }
 ];
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ArticlePageRoutingModule {}
+export class ArticlePageRoutingModule { }
