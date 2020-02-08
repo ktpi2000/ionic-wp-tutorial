@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Title } from '@angular/platform-browser';
+import { WordpressService } from '../wordpress.service';
 
 @Component({
   selector: 'app-article',
@@ -25,7 +24,9 @@ export class ArticlePage implements OnInit {
       date: null,
     };
 
-  constructor(public route: ActivatedRoute, public http: HttpClient) { }
+  constructor(
+    public route: ActivatedRoute,
+    public wordpress: WordpressService) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -36,15 +37,10 @@ export class ArticlePage implements OnInit {
 
   //ページ表示アニメーションが終了したら発火
   ionViewDidEnter() {
-    this.http.get<{
-      ID: number;
-      title: string;
-      content: string;
-      date: string;
-    }>('https://public-api.wordpress.com/rest/v1.1/sites/ionicjp.wordpress.com/posts/' + this.ID)
+    this.wordpress.getArticle(this.ID)
       .subscribe(data => {
         this.post = data;
-      })
+      });
   }
 
 }
