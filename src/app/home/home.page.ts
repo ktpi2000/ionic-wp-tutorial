@@ -27,6 +27,9 @@ export class HomePage {
     const loading = await this.loadingController.create({
       message: 'Loading...',
     });
+    if (!this.posts.length) {
+      await loading.present();
+    }
 
     //インジケータ表示
     await loading.present();
@@ -36,5 +39,8 @@ export class HomePage {
         this.posts = data['posts'];
         loading.dismiss();  //インジケータ削除
       });
+  }
+  trackByFn(index, item): number {
+    return item.ID;
   }
 }
